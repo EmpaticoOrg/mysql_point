@@ -9,8 +9,8 @@ Included:
 * migrations
 * schema dumping and loading
 * reading and writing from database
-* providing a Ruby struct
-* providing an ActiveModel validator
+* a Ruby struct
+* ActiveModel validator for Earth coordinates
 
 Future scope:
 
@@ -30,13 +30,47 @@ gem 'mysql_point'
 
 ## Usage
 
-TODO:
+**Migrating**
 
-* migration example
-* setting as struct
-* setting as string
-* validating
-* using ST_DISTANCE_SPHERE in MySQL
+```ruby
+class MyMigration < ActiveRecord::Migration
+  def change
+    create_table :public_water_fountains do |t|
+      t.point 'location', null: false
+      t.timestamps
+    end
+  end
+end
+```
+
+**Validating**
+
+```ruby
+class PublicWaterFountain
+  validates :location, coordinate: true
+end
+```
+
+**Setting**
+
+```ruby
+# scalar values can be passed in WKT format, with longitude in first position
+PublicWaterFountain.new(location: 'POINT(-73.9635288 40.7812022)')
+
+# structured values can be passed as a MySQLPoint::Coordinate
+PublicWaterFountain.new(
+  location: MySQLPoint::Coordinate(longitude: -73.9635288, latitude: 40.7812022)
+)
+```
+
+**Querying**
+
+```sql
+-- all public water fountains within 5 miles of Central Park
+SELECT *
+FROM public_water_fountains
+WHERE ST_DISTANCE_SPHERE(location, POINT(-73.9675438, 40.7828687)) * 0.000621371 < 5
+```
 
 ## Development
 
