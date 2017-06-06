@@ -1,7 +1,14 @@
+require 'minitest/autorun'
+require 'active_record'
+
+# establish the database connection
+ActiveRecord::Base.establish_connection(
+  ENV['DATABASE_URL'] || 'mysql2://root@localhost/mysql_point_test'
+)
+ActiveRecord::Migration.verbose = false
+
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'mysql_point'
-
-require 'minitest/autorun'
 
 class MySQLPoint::TestCase < Minitest::Test
   def self.test(str, &block)
