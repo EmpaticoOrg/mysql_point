@@ -8,8 +8,8 @@ require_relative 'mysql_point/coordinate'
 require_relative 'coordinate_validator'
 
 # enables column type in ActiveRecord
-require_relative 'mysql_point/type'
-ActiveRecord::Base.connection.type_map.register_type(/^point/, MySQLPoint::Type.new)
+require_relative 'mysql_point/type_map'
+ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend MySQLPoint::TypeMap
 
 # enables a Coordinate to be sent as WKT and converted by a MySQL function on insert/update
 require_relative 'mysql_point/quoting'
