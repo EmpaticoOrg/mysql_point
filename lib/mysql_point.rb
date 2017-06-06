@@ -8,6 +8,7 @@ require_relative 'mysql_point/coordinate'
 require_relative 'coordinate_validator'
 
 # enables column type in ActiveRecord
+require 'active_record/connection_adapters/mysql2_adapter'
 require_relative 'mysql_point/type_map'
 ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend MySQLPoint::TypeMap
 
