@@ -13,7 +13,7 @@ ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend MySQLPoint::TypeMap
 
 # enables a Coordinate to be sent as WKT and converted by a MySQL function on insert/update
 require_relative 'mysql_point/quoting'
-ActiveRecord::Base.connection.class.prepend MySQLPoint::Quoting
+ActiveRecord::ConnectionAdapters::Mysql2Adapter.prepend MySQLPoint::Quoting
 
 # enables shorthand syntax in migrations and db/schema.rb
 require_relative 'mysql_point/column_method'
