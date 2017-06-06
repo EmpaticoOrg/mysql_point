@@ -5,6 +5,7 @@ end
 
 require_relative 'mysql_point/version'
 require_relative 'mysql_point/coordinate'
+require_relative 'coordinate_validator'
 
 # enables column type in ActiveRecord
 require_relative 'mysql_point/type'
