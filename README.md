@@ -2,6 +2,8 @@
 
 Provides basic ActiveRecord support for MySQL `point` fields. This becomes useful in MySQL 5.7.6, which adds [`ST_DISTANCE_SPHERE`](https://dev.mysql.com/doc/refman/5.7/en/spatial-convenience-functions.html#function_st-distance-sphere) for practical distance-between-points-on-Earth calculations.
 
+[![Gem](https://img.shields.io/gem/v/mysql_point.svg)](https://rubygems.org/gems/mysql_point)[![master branch](https://img.shields.io/circleci/project/github/EmpaticoOrg/mysql_point.svg)](https://circleci.com/gh/EmpaticoOrg/mysql_point/tree/master)
+
 ## Features
 
 Included:
