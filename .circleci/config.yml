@@ -13,4 +13,5 @@ jobs:
       - checkout
       - run: bundle install
       - run: echo $DATABASE_URL
+      - run: appraisal install
       - run: appraisal rake test
