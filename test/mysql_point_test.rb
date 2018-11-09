@@ -5,6 +5,12 @@ class MySQLPointTest < MySQLPoint::TestCase
   end
 
   test 'everything' do
+    # establish the database connection
+    ActiveRecord::Base.establish_connection(
+      ENV['DATABASE_URL'] || 'mysql2://root@localhost/mysql_point_test'
+    )
+    ActiveRecord::Migration.verbose = false
+
     ActiveRecord::Schema.define(version: 1) do
       create_table :public_water_fountains, force: true do |t|
         t.point 'location', null: false
@@ -23,5 +29,8 @@ class MySQLPointTest < MySQLPoint::TestCase
       assert_equal 12.34, record.location.longitude, "#{name} setter parses longitude"
       assert_equal 56.78, record.location.latitude, "#{name} setter parses latitude"
     end
+
+    # teardown the connection
+    ActiveRecord::Base.connection.disconnect!
   end
 end
